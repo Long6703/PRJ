@@ -12,29 +12,73 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <style>
-            .container{
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f5f5f5;
+                margin: 0;
+                padding: 0;
                 display: flex;
-                margin-left: 100px;
-                margin-top: 10px;
+                flex-direction: column;
                 align-items: center;
+                justify-content: flex-start;
+                height: 100vh;
             }
 
-            .title{
-                flex: 0.8;
+            h1 {
+                text-align: center;
+                margin-top: 20px;
+                color: #00939C; /* Màu chữ tương tự cho cả hai trang */
+            }
+
+            .container {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: 2% 0;
+                width: 500px;
+            }
+
+            .title {
+                flex: 1;
                 text-align: right;
-                margin-right: 10px;
-
+                padding: 10px;
             }
 
-            .input{
-                flex: 5;
+            .input {
+                flex: 2;
+                padding: 5px;
+            }
+
+            input[type="password"] {
+                width: 500px;
+                padding: 8px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                box-sizing: border-box;
+            }
+
+            button[type="submit"] {
+                display: block;
+                margin: 0 auto;
+                padding: 10px 20px;
+                background-color: #00939C;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+
+            button[type="submit"]:hover {
+                background-color: #007f86;
+            }
+
+            span {
+                color: red;
+                margin-left: 180px;
             }
 
 
-            .button{
-                margin-top: 15px;
-                margin-left: 190px;
-            }
         </style>
     </head>
     <body>
@@ -44,8 +88,8 @@
                 u = (Users)request.getSession().getAttribute("user");
             }  
         %>
-        <h1>Account management!</h1>
         <form action="changepassword" method="post">
+            <h1>Account management!</h1>
             <div class="container">
                 <div class="title">Old Password</div>
                 <div class="input"><input type="password" name="oldpass"></div>

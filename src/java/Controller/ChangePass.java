@@ -3,9 +3,7 @@ package Controller;
 import Dal.UsersDBContext;
 import Model.Users;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -45,8 +43,7 @@ public class ChangePass extends BaseAuthen {
             u.setPassString(newpass);
             request.getSession().setAttribute("user", u);
         } else {
-            err = "Something was wrong!";
-
+            err = "Something went wrong!";
         }
         request.setAttribute("err", err);
         request.getRequestDispatcher("view/changepass.jsp").forward(request, response);

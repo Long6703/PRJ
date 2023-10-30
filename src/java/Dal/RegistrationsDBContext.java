@@ -93,7 +93,7 @@ public class RegistrationsDBContext extends DBContext{
         return false;
     }
     
-    public ArrayList<Registrations> listRegistration(int teacherID){
+    public ArrayList<Registrations> listRegistration(int teacherID, int courseID){
         ArrayList<Registrations> registrationses = new ArrayList<>();
         try {
             String sql = "select r.student_id,s.student_name,c.class_name, r.exam_id, e.course_id, co.course_name, r.registration_date from Registrations r\n" +
@@ -101,10 +101,11 @@ public class RegistrationsDBContext extends DBContext{
                         "join Students s on r.student_id = s.student_id\n" +
                         "join Courses co on co.course_id = e.course_id\n" +
                         "join Classes c on s.class_id = c.class_id\n" +
-                        "where co.teacher_id = ?;";
+                        "where co.teacher_id = ? and co.course_id = ? ;";
             
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, teacherID);
+            stm.setInt(2, courseID);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {                
                 Registrations r = new Registrations();

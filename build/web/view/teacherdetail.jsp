@@ -11,6 +11,38 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f5f5f5;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                height: 100vh;
+            }
+
+            h1 {
+                text-align: center;
+                margin-top: 20px;
+                color: #00939C;
+            }
+
+            h1, p {
+                text-align: left;
+                margin: 10px;
+                color: #333;
+            }
+
+            p {
+                font-weight: bold;
+            }
+
+
+
+        </style>
         <%
             Teacher t = null;
             if(request.getAttribute("teacher_infor")!=null){

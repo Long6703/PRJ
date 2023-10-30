@@ -12,31 +12,63 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f5f5f5;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                height: 100vh;
+            }
+
+            h1 {
+                text-align: center;
+                margin-top: 20px;
+                color: #00939C;
+            }
+
             .form-container {
                 display: flex;
-                align-items: center;
-                margin-bottom: 2%;
+                margin: 2% 0;
             }
 
             .form-label {
-                flex: 0.2;
+                flex: 1;
                 text-align: right;
-                padding-right: 10px;
+                padding: 10px;
             }
 
             .form-input {
                 flex: 2;
-            }
-            thead, tr, td{
-                border: 1px solid black;
-            }
-            table{
-                margin-top: 30px;
+                padding: 5px;
             }
 
-            .error-message {
-                color: red;
+            input[type="text"] {
+                width: 500px;
+                padding: 8px;
+                border: 1px solid #00939C;
+                border-radius: 4px;
+                box-sizing: border-box;
             }
+
+            button[type="submit"] {
+                background-color: #00939C;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                padding: 10px 20px;
+                transition: background-color 0.3s ease;
+                margin-left: 300px;
+            }
+
+            button[type="submit"]:hover {
+                background-color: #007f86;
+            }
+
         </style>
     </head>
     <body>
@@ -62,7 +94,7 @@
             </div>
             <div class="form-container">
                 <div class="form-label">Class :</div>
-                <div class="form-input"><input type="text" name="class" value="${student_infor.studentClasses.class_nameString}"></div>
+                <div class="form-input"><input type="text" name="class" value="${student_infor.studentClasses.class_nameString}" readonly></div>
             </div>
             <input type="hidden" name="userid" value="<%= u != null ? u.getUserid() : "" %>">
             <input type="hidden" name="role" value="<%= u != null ? u.getRole() : "" %>">

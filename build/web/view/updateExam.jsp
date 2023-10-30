@@ -12,39 +12,64 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f5f5f5;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                height: 100vh;
+            }
+
+            h1 {
+                text-align: center;
+                margin-top: 20px;
+                color: #00939C;
+            }
+
             table {
-                width: 100%;
                 border-collapse: collapse;
-                margin: 20px 0;
+                width: 80%;
+                margin: 20px auto;
+            }
+
+            table, th, td {
+                border: 1px solid #00939C;
             }
 
             th, td {
-                border: 1px solid #ccc;
-                padding: 10px;
-                text-align: left;
+                padding: 8px;
+                text-align: center;
             }
 
-            th {
-                background-color: #f2f2f2;
-            }
-
-            input[type="text"], input[type="date"], input[type="time"] {
+            input[type="text"],
+            input[type="date"],
+            input[type="time"] {
                 width: 100%;
-                padding: 5px;
+                padding: 8px;
                 border: 1px solid #ccc;
-            }
-
-            input[type="text"][readonly], input[type="date"][readonly], input[type="time"][readonly] {
-                background-color: #f2f2f2;
+                border-radius: 4px;
+                box-sizing: border-box;
             }
 
             button[type="submit"] {
-                background-color: #007BFF;
-                color: #fff;
                 padding: 5px 10px;
+                background-color: #00939C;
+                color: white;
                 border: none;
+                border-radius: 4px;
                 cursor: pointer;
+                transition: background-color 0.3s ease;
+                margin-left: 500px;
             }
+
+            button[type="submit"]:hover {
+                background-color: #007f86;
+            }
+
         </style>
 
     </head>
@@ -69,8 +94,8 @@
                     <td><input type="date" name="dateOfPublic" value="${examses.dateOfPublic}"></td>
                 <input type="hidden" name="examID" value="${examses.examID}">
                 </tr>
-                <button type="submit">Update</button>
             </table>
+            <button type="submit">Update</button>
         </form>
     </body>
 </html>

@@ -12,50 +12,53 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <style>
-            table, th, td, tr{
-                border: 1px solid black;
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f5f5f5;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                height: 100vh;
+            }
+
+            h1 {
+                text-align: center;
+                margin-top: 20px;
+                color: #00939C;
             }
 
             table {
-                width: 100%;
                 border-collapse: collapse;
-                margin: 20px;
+                width: 80%;
+                margin: 20px auto;
+            }
+
+            table, th, td {
+                border: 1px solid #00939C;
             }
 
             th, td {
-                border: 1px solid #ccc;
                 padding: 8px;
-                text-align: left;
+                text-align: center;
             }
 
-            th {
-                background-color: #3498db;
-                color: #fff;
-            }
-
-            tr:nth-child(even) {
-                background-color: #f2f2f2;
-            }
-
-            tr:nth-child(odd) {
-                background-color: #fff;
-            }
-
-            button {
-                background-color: #3498db;
-                color: #fff;
+            button[type="submit"] {
+                padding: 5px 10px;
+                background-color: #00939C;
+                color: white;
                 border: none;
-                padding: 8px 12px;
+                border-radius: 4px;
                 cursor: pointer;
+                transition: background-color 0.3s ease;
             }
 
-            button:hover {
-                background-color: #2980b9;
+            button[type="submit"]:hover {
+                background-color: #007f86;
             }
 
-            form {
-                margin: 20px;
-            }
 
         </style>
     </head>

@@ -12,9 +12,53 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <style>
-            table, th, tr, td{
-                border: 1px solid black;
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f5f5f5;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                height: 100vh;
             }
+
+            h1 {
+                text-align: center;
+                margin-top: 20px;
+                color: #00939C;
+            }
+
+            table {
+                border-collapse: collapse;
+                width: 80%;
+                margin: 20px auto;
+            }
+
+            table, th, td {
+                border: 1px solid #00939C; /* Màu viền của bảng */
+            }
+
+            th, td {
+                padding: 8px;
+                text-align: center;
+            }
+
+            button[type="submit"] {
+                padding: 5px 10px;
+                background-color: #00939C;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+
+            button[type="submit"]:hover {
+                background-color: #007f86;
+            }
+
         </style>
     </head>
     <body>

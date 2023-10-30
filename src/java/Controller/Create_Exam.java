@@ -1,4 +1,3 @@
-
 package Controller;
 
 import Dal.CourseDBContext;
@@ -18,20 +17,25 @@ import java.util.ArrayList;
  * @author acer
  */
 public class Create_Exam extends BaseAuthen {
-   
 
     @Override
     protected void doGet2(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        Users u = (Users)request.getSession().getAttribute("user");
-        CourseDBContext c = new CourseDBContext();
-        ArrayList<Courses> coursesList = c.getAllCourseByUserID(u.getUserid());
-        request.setAttribute("coursesList", coursesList);
-        request.getRequestDispatcher("view/createexam.jsp").forward(request, response);
-    } 
+            throws ServletException, IOException {
+        Users u = (Users) request.getSession().getAttribute("user");
+        if ("teacher".equals(u.getRole())) {
+            CourseDBContext c = new CourseDBContext();
+            ArrayList<Courses> coursesList = c.getAllCourseByUserID(u.getUserid());
+            request.setAttribute("coursesList", coursesList);
+            request.getRequestDispatcher("view/createexam.jsp").forward(request, response);
+        }else {
+            request.getRequestDispatcher("view/permissions.jsp").forward(request, response);
+        }
 
-    /** 
+    }
+
+    /**
      * Handles the HTTP <code>POST</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -39,7 +43,7 @@ public class Create_Exam extends BaseAuthen {
      */
     @Override
     protected void doPost2(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         String id = request.getParameter("teacherID");
         String courseID = request.getParameter("courseID");
         String examdate = request.getParameter("examdate");
@@ -47,6 +51,16 @@ public class Create_Exam extends BaseAuthen {
         String examtype = request.getParameter("examtype");
         String examlocation = request.getParameter("examlocation");
         String dateofpublic = request.getParameter("dateofpublic");
+        if(id.isEmpty() || courseID.isEmpty() || examdate.isEmpty() || examtime.isEmpty() || examtype.isEmpty() || examlocation.isEmpty() || dateofpublic.isEmpty()){
+            String err = "Missing information";
+            request.setAttribute("err", err);
+            CourseDBContext c = new CourseDBContext();
+            Users u = (Users) request.getSession().getAttribute("user");
+            ArrayList<Courses> coursesList = c.getAllCourseByUserID(u.getUserid());
+            request.setAttribute("coursesList", coursesList);
+            request.getRequestDispatcher("view/createexam.jsp").forward(request, response);
+            return;
+        }
         Exams e = new Exams();
         Courses c = new Courses();
         c.setCourseID(Integer.parseInt(courseID));
@@ -59,19 +73,20 @@ public class Create_Exam extends BaseAuthen {
         Teacher t = new Teacher();
         t.setTeacher_id(Integer.parseInt(id));
         e.setTeacher(t);
-        if("FE".equals(e.getExam_type())){
+        if ("FE".equals(e.getExam_type())) {
             e.setExam_form("Multiple choices on EOS");
-        }else {
+        } else {
             e.setExam_form("Practical exam (PEA client)");
         }
         ExamDBContext edbc = new ExamDBContext();
-        if(edbc.createExam(e, Integer.parseInt(id))){
-            response.getWriter().println("done");
+        if (edbc.createExam(e, Integer.parseInt(id))) {
+            response.sendRedirect("");
         }
     }
 
-    /** 
+    /**
      * Returns a short description of the servlet.
+     *
      * @return a String containing servlet description
      */
     @Override

@@ -12,74 +12,63 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <style>
-            .container{
-                display: flex;
-                align-content: center;
-                justify-content: space-around;
-            }
-
-            .header{
-                text-align: center;
-            }
-
             body {
                 font-family: Arial, sans-serif;
+                background-color: #f5f5f5;
                 margin: 0;
                 padding: 0;
             }
 
             .header {
-                background-color: #3498db;
-                color: #fff;
-                padding: 20px;
+                background-color: #00939C;
+                color: white;
                 text-align: center;
+                padding: 20px;
             }
 
-            h1 {
-                font-size: 36px;
-            }
-
-            h2 {
-                font-size: 20px;
-            }
-
-            a {
-                text-decoration: none;
-                color: #3498db;
-                margin: 5px;
-            }
-
-            button {
-                background-color: #3498db;
-                color: #fff;
-                border: none;
-                padding: 10px 20px;
-                cursor: pointer;
+            .header h1 {
+                margin: 0;
             }
 
             .container {
-                margin: 20px;
                 display: flex;
                 justify-content: space-around;
+                margin: 20px;
+            }
+
+            .container h2 {
+                color: #00939C;
             }
 
             ul {
                 list-style-type: none;
             }
 
-            li {
+            ul li {
                 margin: 10px 0;
             }
 
-            /* Styling links inside the list */
-            ul li a {
-                color: #3498db;
+            a {
+                text-decoration: none;
             }
 
-            /* On hover style for links */
-            ul li a:hover {
+            a:hover {
                 text-decoration: underline;
             }
+
+            .button {
+                background-color: #00939C;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+
+            .button:hover {
+                background-color: #007f86;
+            }
+
 
         </style>
         <%
@@ -93,9 +82,8 @@
         <div class="header">
             <h1>Home page!</h1>
             <h2>Welcome <%= u != null ? u.getUsernameString() : "Guest" %></h2>
+            <a href="logout"><button>Logout</button></a>
             <a href="login"><button>Login</button></a>
-            <a href="#"><button>Logout</button></a>
-            <a href="register"><button>Register</button></a>
         </div>
         <div class="container">
             <div>

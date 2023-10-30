@@ -12,32 +12,94 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f5f5f5;
+                margin: 0;
+                padding: 0;
+            }
+
+            h1 {
+                text-align: center;
+                margin-top: 20px;
+                color: #00939C;
+            }
+
             .form-container {
                 display: flex;
                 align-items: center;
-                margin-bottom: 2%;
+                justify-content: center;
+                margin: 2% 0;
             }
 
             .form-label {
-                flex: 0.2;
+                flex: 1;
                 text-align: right;
-                padding-right: 10px;
+                padding: 10px;
             }
 
             .form-input {
                 flex: 2;
+                padding: 5px;
             }
-            thead, tr, td{
+
+            select,
+            input[type="date"],
+            input[type="time"],
+            input[type="text"],
+            input[type="radio"] {
+                width: 500px;
+                padding: 8px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                box-sizing: border-box;
+            }
+
+            input[type="radio"] {
+                width: auto;
+            }
+
+            table {
+                margin: 30px auto;
+                border-collapse: collapse;
+            }
+
+            table, th, td {
                 border: 1px solid black;
             }
-            table{
-                margin-top: 30px;
+
+            th, td {
+                padding: 8px;
+                text-align: center;
             }
 
             .error-message {
                 color: red;
             }
+
+            .button {
+                display: block;
+                margin: 0 auto;
+                padding: 10px 20px;
+                background-color: #00939C;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+
+            .button:hover {
+                background-color: #007f86;
+            }
+            
+            span {
+                color: red;
+                margin-left: 550px;
+                margin-top: 100px;
+            }
         </style>
+
     </head>
     <body>
         <h1>Create exam schedule!</h1>
@@ -77,6 +139,7 @@
             </div>
             <input type="hidden" name="teacherID" value="${coursesList[0].teacher.teacher_id}" />
             <button class="button" type="submit" name="addname" value="add">Create</button>
+            <span style="color: red">${err}</span>
         </form>
     </body>
 </html>
