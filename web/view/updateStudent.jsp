@@ -14,25 +14,10 @@
         <style>
             body {
                 font-family: Arial, sans-serif;
-                background-color: #f5f5f5;
-                margin: 0;
-                padding: 0;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: flex-start;
-                height: 100vh;
-            }
-
-            h1 {
-                text-align: center;
-                margin-top: 20px;
-                color: #00939C;
             }
 
             .form-container {
                 display: flex;
-                margin: 2% 0;
             }
 
             .form-label {
@@ -42,7 +27,7 @@
             }
 
             .form-input {
-                flex: 2;
+                flex: 9;
                 padding: 5px;
             }
 
@@ -63,6 +48,7 @@
                 padding: 10px 20px;
                 transition: background-color 0.3s ease;
                 margin-left: 300px;
+                margin-top: 20px;
             }
 
             button[type="submit"]:hover {
@@ -78,7 +64,8 @@
                 u = (Users)request.getSession().getAttribute("user");
             }  
         %>
-        <h1>Update Student!</h1>
+        <%@ include file="header.jsp" %>
+        <h3>Update Student!</h3>
         <form action="userdetail" method="post">
             <div class="form-container">
                 <div class="form-label">Name :</div>

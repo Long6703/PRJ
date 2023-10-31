@@ -18,17 +18,28 @@ public class LoginController extends BaseAuthen {
     protected void doGet2(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Cookie[] cookies = request.getCookies();
-//        if (cookies != null) {
-//            for (Cookie cookie : cookies) {
-//                if ("rememberMe".equals(cookie.getName()) && "true".equals(cookie.getValue())) {
-//                    HttpSession session = request.getSession(false);
-//                    response.sendRedirect("/examschedule/home.jsp");
-//                    return;
-//                }
-//            }
-//        }
+        String username = null;
+        String password = null;
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("username".equals(cookie.getName())) {
+                    username = cookie.getValue();
+                }
+                if ("password".equals(cookie.getName())) {
+                    password = cookie.getValue();
+                }
+            }
+            if (username != null && password != null) {
+                UsersDBContext usersDBContext = new UsersDBContext();
+                Users users = usersDBContext.checkLogin(username, password);
+                if (users != null){
+                    request.getSession().setAttribute("user", users);
+                    response.sendRedirect("/examschedule/home.jsp");
+                    return;
+                }
+            }
+        }
         request.getRequestDispatcher("view/login.jsp").forward(request, response);
-
     }
 
     /**
@@ -49,15 +60,15 @@ public class LoginController extends BaseAuthen {
         Users users = usersDBContext.checkLogin(username, password);
         if (users != null) {
             request.getSession().setAttribute("user", users);
-//            if (rememberMe) {
-//                Cookie rememberMeCookie = new Cookie("rememberMe", "true");
-//                rememberMeCookie.setMaxAge(30 * 24 * 60 * 60);
-//                response.addCookie(rememberMeCookie);
-//            } else {
-//                Cookie rememberMeCookie = new Cookie("rememberMe", "");
-//                rememberMeCookie.setMaxAge(0);
-//                response.addCookie(rememberMeCookie);
-//            }
+            if (rememberMe) {
+                Cookie unameCookie = new Cookie("username", username);
+                unameCookie.setMaxAge(2 * 24 * 60 * 60);
+                response.addCookie(unameCookie);
+
+                Cookie passCookie = new Cookie("password", password);
+                passCookie.setMaxAge(2 * 24 * 60 * 60);
+                response.addCookie(passCookie);
+            }
             response.sendRedirect("/examschedule/home.jsp");
         } else {
             request.setAttribute("error", "Invalid username or password.!!!");

@@ -14,16 +14,10 @@
         <style>
             body {
                 font-family: Arial, sans-serif;
-                background-color: #f5f5f5;
-                margin: 0;
-                padding: 0;
             }
 
             .header {
-                background-color: #00939C;
-                color: white;
                 text-align: center;
-                padding: 20px;
             }
 
             .header h1 {
@@ -79,33 +73,8 @@
         %>
     </head>
     <body>
-        <div class="header">
-            <h1>Home page!</h1>
-            <h2>Welcome <%= u != null ? u.getUsernameString() : "Guest" %></h2>
-            <a href="logout"><button>Logout</button></a>
-            <a href="login"><button>Login</button></a>
-        </div>
+        <%@ include file="view/header.jsp" %>
         <div class="container">
-            <div>
-                <h2>List feature for user</h2>
-                <ul>
-                    <li>
-                        <a href="userdetail?userid=<%= u != null ? u.getUserid() : "" %>&role=<%= u != null ? u.getRole() : "" %>&mode=1">
-                            Show personal information
-                        </a>
-                    </li>
-                    <li>
-                        <a href="userdetail?userid=<%= u != null ? u.getUserid() : "" %>&role=<%= u != null ? u.getRole() : "" %>&mode=2">
-                            Edit profile
-                        </a>
-                    </li>
-                    <li>
-                        <a href="changepassword">
-                            Account management
-                        </a>
-                    </li>
-                </ul>
-            </div>
             <div>
                 <h2>List feature for student</h2>
                 <ul>
@@ -136,7 +105,7 @@
                     </li>
                     <li>
                         <a href="editexam?userid=<%= u != null ? u.getUserid() : "" %>&role=<%= u != null ? u.getRole() : "" %>">
-                            Edit exam schedule
+                            Manage exam schedule
                         </a>
                     </li>
                     <li>

@@ -11,14 +11,13 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <style>
-            h1 {
-                text-align: center;
-                margin-top: 20px;
-                color: #00939C;
+            body {
+                font-family: Arial, sans-serif;
             }
         </style>
     </head>
     <body>
-        <h1>Access denied!</h1>
+        <%@ include file="header.jsp" %>
+        <h3>Access denied!</h3>
     </body>
 </html>

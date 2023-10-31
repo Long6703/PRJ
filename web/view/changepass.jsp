@@ -14,20 +14,12 @@
         <style>
             body {
                 font-family: Arial, sans-serif;
-                background-color: #f5f5f5;
-                margin: 0;
-                padding: 0;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: flex-start;
-                height: 100vh;
+                font-weight: 20px;
             }
 
-            h1 {
-                text-align: center;
-                margin-top: 20px;
-                color: #00939C; /* Màu chữ tương tự cho cả hai trang */
+
+            .form-container {
+                display: flex;
             }
 
             .container {
@@ -45,7 +37,7 @@
             }
 
             .input {
-                flex: 2;
+                flex: 9;
                 padding: 5px;
             }
 
@@ -59,7 +51,7 @@
 
             button[type="submit"] {
                 display: block;
-                margin: 0 auto;
+                margin-left: 150px;
                 padding: 10px 20px;
                 background-color: #00939C;
                 color: white;
@@ -75,7 +67,7 @@
 
             span {
                 color: red;
-                margin-left: 180px;
+                margin-left: 140px;
             }
 
 
@@ -88,8 +80,9 @@
                 u = (Users)request.getSession().getAttribute("user");
             }  
         %>
+        <%@ include file="header.jsp" %>
         <form action="changepassword" method="post">
-            <h1>Account management!</h1>
+            <h3>Account management!</h3>
             <div class="container">
                 <div class="title">Old Password</div>
                 <div class="input"><input type="password" name="oldpass"></div>

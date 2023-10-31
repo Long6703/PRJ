@@ -14,25 +14,11 @@
         <style>
             body {
                 font-family: Arial, sans-serif;
-                background-color: #f5f5f5;
-                margin: 0;
-                padding: 0;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: flex-start;
-                height: 100vh;
-            }
-
-            h1 {
-                text-align: center;
-                margin-top: 20px;
-                color: #00939C;
             }
 
             table {
                 border-collapse: collapse;
-                width: 80%;
+                width: 100%;
                 margin: 20px auto;
             }
 
@@ -62,7 +48,8 @@
         </style>
     </head>
     <body>
-        <h1>Cancel Exam Schedule!</h1>
+        <%@ include file="header.jsp" %>
+        <h3>Cancel Exam Schedule!</h3>
         <table>
             <tr>
                 <th>Courses ID</th>

@@ -205,9 +205,6 @@
                     <input type="checkbox" class="checkbox-input" name="rememberme" value="1">
                     <p class="one-line-text">Remember Me</p>
                 </div>
-                <div class="forgot-password">
-                    <a href="forgot_password.html">Forgot Password?</a>
-                </div>
             </div>
             <button class="btn" type="submit">Log in</button>
             <p class="error-message"><%=err%></p>

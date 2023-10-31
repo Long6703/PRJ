@@ -14,25 +14,12 @@
         <style>
             body {
                 font-family: Arial, sans-serif;
-                background-color: #f5f5f5;
-                margin: 0;
-                padding: 0;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: flex-start;
-                height: 100vh;
-            }
-
-            h1 {
-                text-align: center;
-                margin-top: 20px;
-                color: #00939C;
+                font-weight: 20px;
             }
 
             table {
                 border-collapse: collapse;
-                width: 80%;
+                width: 100%;
                 margin: 20px auto;
             }
 
@@ -62,9 +49,11 @@
         </style>
     </head>
     <body>
-        <h1>Edit exam schedule!</h1>
+        <%@ include file="header.jsp" %>
+        <h3>Edit exam schedule!</h3>
         <table>
             <tr>
+                <th>Exam ID</th>
                 <th>Course Name</th>
                 <th>Exam date</th>
                 <th>Exam time</th>
@@ -76,6 +65,7 @@
             </tr>
             <c:forEach var="exam" items="${allExamByTeacher}">
                 <tr>
+                    <td>${exam.examID}</td>
                     <td>${exam.courses.courseName}</td>
                     <td>${exam.exam_date}</td>
                     <td>${exam.exam_time}</td>

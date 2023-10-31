@@ -14,25 +14,11 @@
         <style>
             body {
                 font-family: Arial, sans-serif;
-                background-color: #f5f5f5;
-                margin: 0;
-                padding: 0;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: flex-start;
-                height: 100vh;
-            }
-
-            h1 {
-                text-align: center;
-                margin-top: 20px;
-                color: #00939C;
             }
 
             table {
                 border-collapse: collapse;
-                width: 80%;
+                width: 100%;
                 margin: 20px auto;
             }
 
@@ -74,10 +60,12 @@
 
     </head>
     <body>
-        <h1>Update Exam Schedule!</h1>
+        <%@ include file="header.jsp" %>
+        <h3>Update Exam Schedule!</h3>
         <form action="updateexam" method="post">
             <table>
                 <tr>
+                    <th>Exam ID</th>
                     <th>Courses Name</th>
                     <th>Exam Date</th>
                     <th>Exam Time</th>
@@ -86,6 +74,7 @@
                     <th>Date of Publication</th>
                 </tr>
                 <tr>
+                    <td><input type="text" name="examId" value="${examses.examID}" readonly></td>
                     <td><input type="text" name="courseName" value="${examses.courses.courseName}" readonly></td>
                     <td><input type="date" name="examDate" value="${examses.exam_date}"></td>
                     <td><input type="time" name="examTime" value="${examses.exam_time}"></td>

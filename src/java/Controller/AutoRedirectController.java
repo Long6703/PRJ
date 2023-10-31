@@ -2,8 +2,9 @@
 package Controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -11,8 +12,7 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author acer
  */
-public class LogoutController extends BaseAuthen {
-   
+public class AutoRedirectController extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 
@@ -23,17 +23,8 @@ public class LogoutController extends BaseAuthen {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet2(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        request.getSession().removeAttribute("user");
-        request.getSession().invalidate();
-        Cookie usernameCookie = new Cookie("username", "");
-        usernameCookie.setMaxAge(0);
-        response.addCookie(usernameCookie);
-
-        Cookie passwordCookie = new Cookie("password", "");
-        passwordCookie.setMaxAge(0);
-        response.addCookie(passwordCookie);
         response.sendRedirect("login");
     } 
 
@@ -45,7 +36,7 @@ public class LogoutController extends BaseAuthen {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost2(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         
     }

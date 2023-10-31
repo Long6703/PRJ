@@ -18,51 +18,110 @@
             if(request.getAttribute("student_infor")!=null){
                 s = (Student)request.getAttribute("student_infor");
             }
+            
+            Users u = null;
+            if(request.getSession().getAttribute("user")!=null){
+                u = (Users)request.getSession().getAttribute("user");
+            }
         %>
 
         <style>
             body {
                 font-family: Arial, sans-serif;
-                background-color: #f5f5f5;
-                margin: 0;
-                padding: 0;
+                font-weight: 20px;
+            }
+
+
+            .form-container {
                 display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: flex-start;
-                height: 100vh;
             }
 
-            h1 {
-                text-align: center;
-                margin-top: 20px;
-                color: #00939C;
+            .form-label {
+                flex: 1;
+                text-align: right;
+                padding: 10px;
             }
 
-            table {
-                border-collapse: collapse;
-                width: 80%;
-                margin: 20px auto;
+            .form-input {
+                flex: 9;
+                padding: 5px;
             }
 
-            table, th, td {
-                border: 1px solid #00939C;
-            }
-
-            th, td {
+            input[type="text"] {
+                width: 500px;
                 padding: 8px;
-                text-align: center;
+                border: 1px solid #00939C;
+                border-radius: 4px;
+                box-sizing: border-box;
+            }
+
+            button[type="submit"] {
+                background-color: #00939C;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                padding: 10px 20px;
+                transition: background-color 0.3s ease;
+                margin-left: 250px;
+            }
+
+            button[type="submit"]:hover {
+                background-color: #007f86;
+            }
+
+            .but{
+                margin-top: 20px;
+                background-color: #00939C;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                padding: 10px 20px;
+                transition: background-color 0.3s ease;
+
+            }
+
+            .but:hover {
+                background-color: #007f86;
+            }
+
+            .feature{
+                display: flex;
+                gap: 50px;
+                margin-left: 100px;
             }
 
 
         </style>
     </head>
     <body>
-        <h1>Student detail!</h1>
-        ID : <%= s.getStudent_id() %><br>
-        Name  :<%= s.getStudent_name() %><br>
-        Email : <%= s.getStudent_email() %><br>
-        Phone : <%= s.getStudent_phone()%><br>
-        Class : <%= s.getStudentClasses().getClass_nameString() %><br>
+        <%@ include file="header.jsp" %>
+        <h3>Student detail!</h3>
+        <div class="form-container">
+            <div class="form-label">ID :</div>
+            <div class="form-input"><input type="text" name="id" value="<%= s.getStudent_id() %>" readonly></div>
+        </div>
+        <div class="form-container">
+            <div class="form-label">Name :</div>
+            <div class="form-input"><input type="text" name="name" value="<%= s.getStudent_name() %>" readonly></div>
+        </div>
+        <div class="form-container">
+            <div class="form-label">Email : </div>
+            <div class="form-input"><input type="text" name="email" value="<%= s.getStudent_email() %>" readonly></div>
+        </div>
+        <div class="form-container">
+            <div class="form-label">Phone :</div>
+            <div class="form-input"><input type="text" name="phone" value="<%= s.getStudent_phone()%>" readonly></div>
+        </div>
+        <div class="form-container">
+            <div class="form-label">Class :</div>
+            <div class="form-input"><input type="text" name="class" value="<%= s.getStudentClasses().getClass_nameString() %>" readonly></div>
+        </div>
+        <div class="feature">
+            <a href="userdetail?userid=<%= u != null ? u.getUserid() : "" %>&role=<%= u != null ? u.getRole() : "" %>&mode=2">
+                <button class="but">Edit profile</button></a>
+            <a href="changepassword"><button class="but">Change password</button></a>
+        </div>
     </body>
 </html>

@@ -27,7 +27,7 @@ public class Create_Exam extends BaseAuthen {
             ArrayList<Courses> coursesList = c.getAllCourseByUserID(u.getUserid());
             request.setAttribute("coursesList", coursesList);
             request.getRequestDispatcher("view/createexam.jsp").forward(request, response);
-        }else {
+        } else {
             request.getRequestDispatcher("view/permissions.jsp").forward(request, response);
         }
 
@@ -51,20 +51,20 @@ public class Create_Exam extends BaseAuthen {
         String examtype = request.getParameter("examtype");
         String examlocation = request.getParameter("examlocation");
         String dateofpublic = request.getParameter("dateofpublic");
-        if(id.isEmpty() || courseID.isEmpty() || examdate.isEmpty() || examtime.isEmpty() || examtype.isEmpty() || examlocation.isEmpty() || dateofpublic.isEmpty()){
+        CourseDBContext c = new CourseDBContext();
+        Users u = (Users) request.getSession().getAttribute("user");
+        ArrayList<Courses> coursesList = c.getAllCourseByUserID(u.getUserid());
+        request.setAttribute("coursesList", coursesList);
+        if (id.isEmpty() || courseID.isEmpty() || examdate.isEmpty() || examtime.isEmpty() || examtype.isEmpty() || examlocation.isEmpty() || dateofpublic.isEmpty()) {
             String err = "Missing information";
             request.setAttribute("err", err);
-            CourseDBContext c = new CourseDBContext();
-            Users u = (Users) request.getSession().getAttribute("user");
-            ArrayList<Courses> coursesList = c.getAllCourseByUserID(u.getUserid());
-            request.setAttribute("coursesList", coursesList);
             request.getRequestDispatcher("view/createexam.jsp").forward(request, response);
             return;
         }
         Exams e = new Exams();
-        Courses c = new Courses();
-        c.setCourseID(Integer.parseInt(courseID));
-        e.setCourses(c);
+        Courses co = new Courses();
+        co.setCourseID(Integer.parseInt(courseID));
+        e.setCourses(co);
         e.setExam_date(examdate);
         e.setExam_time(examtime);
         e.setExam_location(examlocation);
@@ -80,7 +80,11 @@ public class Create_Exam extends BaseAuthen {
         }
         ExamDBContext edbc = new ExamDBContext();
         if (edbc.createExam(e, Integer.parseInt(id))) {
-            response.sendRedirect("");
+            String err = "Create sucessful!!";
+            request.setAttribute("err", err);
+            request.setAttribute("coursesList", coursesList);
+            request.getRequestDispatcher("view/createexam.jsp").forward(request, response);
+            return;
         }
     }
 

@@ -14,22 +14,12 @@
         <style>
             body {
                 font-family: Arial, sans-serif;
-                background-color: #f5f5f5;
-                margin: 0;
-                padding: 0;
+                font-weight: 20px;
             }
 
-            h1 {
-                text-align: center;
-                margin-top: 20px;
-                color: #00939C;
-            }
 
             .form-container {
                 display: flex;
-                align-items: center;
-                justify-content: center;
-                margin: 2% 0;
             }
 
             .form-label {
@@ -39,7 +29,7 @@
             }
 
             .form-input {
-                flex: 2;
+                flex: 9;
                 padding: 5px;
             }
 
@@ -79,7 +69,7 @@
 
             .button {
                 display: block;
-                margin: 0 auto;
+                margin-left: 300px;
                 padding: 10px 20px;
                 background-color: #00939C;
                 color: white;
@@ -95,14 +85,15 @@
             
             span {
                 color: red;
-                margin-left: 550px;
-                margin-top: 100px;
+                margin-left: 280px;
+                margin-top: 200px;
             }
         </style>
 
     </head>
     <body>
-        <h1>Create exam schedule!</h1>
+        <%@ include file="header.jsp" %>
+        <h3>Create exam schedule!</h3>
         <form action="createexam" method="post">
             <div class="form-container">
                 <div class="form-label">Courses :</div>

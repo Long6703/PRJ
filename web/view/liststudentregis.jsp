@@ -15,20 +15,6 @@
         <style>
             body {
                 font-family: Arial, sans-serif;
-                background-color: #f5f5f5;
-                margin: 0;
-                padding: 0;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: flex-start;
-                height: 100vh;
-            }
-
-            h1 {
-                text-align: center;
-                margin-top: 20px;
-                color: #00939C;
             }
 
             table {
@@ -38,7 +24,7 @@
             }
 
             table, th, td {
-                border: 1px solid #00939C; /* Màu viền của bảng */
+                border: 1px solid #00939C; 
             }
 
             th, td {
@@ -49,7 +35,8 @@
         </style>
     </head>
     <body>
-        <h1>List Student Registrations!</h1>
+        <%@ include file="header.jsp" %>
+        <h3>List Student Registrations!</h3>
         <table>
             <tr>
                 <th>Student ID</th>

@@ -54,6 +54,8 @@ public class Edit_exam extends BaseAuthen {
         String examID = request.getParameter("examId");
         if (e.deleteExam(Integer.parseInt(examID))) {
             response.getWriter().println("done");
+        }else {
+            response.getWriter().println("no");
         }
 
     }
