@@ -39,14 +39,12 @@ public class ChangePass extends BaseAuthen {
         if (u.getPassString().equals(oldpass) && newpass.equals(renewpass)) {
             UsersDBContext udbc = new UsersDBContext();
             udbc.changepass(newpass, u.getUserid());
-            err = "Change successful!";
-            u.setPassString(newpass);
-            request.getSession().setAttribute("user", u);
+            response.sendRedirect("logout");
         } else {
             err = "Something went wrong!";
+            request.setAttribute("err", err);
+            request.getRequestDispatcher("view/changepass.jsp").forward(request, response);
         }
-        request.setAttribute("err", err);
-        request.getRequestDispatcher("view/changepass.jsp").forward(request, response);
     }
 
     /**

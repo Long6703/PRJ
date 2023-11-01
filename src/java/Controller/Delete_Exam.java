@@ -3,6 +3,7 @@ package Controller;
 import Dal.RegistrationsDBContext;
 import Model.Exams;
 import Model.Registrations;
+import Model.Users;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -54,8 +55,9 @@ public class Delete_Exam extends BaseAuthen {
             throws ServletException, IOException {
         String registrationsID = request.getParameter("registrationsID");
         RegistrationsDBContext rgdb = new RegistrationsDBContext();
+        Users u = (Users)request.getSession().getAttribute("user");
         if(rgdb.deleteRegistration(Integer.parseInt(registrationsID))){
-            response.getWriter().println("done");
+            response.sendRedirect( "deleteexam?userid="+u.getUserid()+"&role="+u.getRole() );
         }
     }
 

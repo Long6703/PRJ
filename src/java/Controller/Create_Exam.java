@@ -80,11 +80,12 @@ public class Create_Exam extends BaseAuthen {
         }
         ExamDBContext edbc = new ExamDBContext();
         if (edbc.createExam(e, Integer.parseInt(id))) {
-            String err = "Create sucessful!!";
-            request.setAttribute("err", err);
-            request.setAttribute("coursesList", coursesList);
-            request.getRequestDispatcher("view/createexam.jsp").forward(request, response);
-            return;
+//            String err = "Create sucessful!!";
+//            request.setAttribute("err", err);
+//            request.setAttribute("coursesList", coursesList);
+//            request.getRequestDispatcher("view/createexam.jsp").forward(request, response);
+//            return;
+            response.sendRedirect( "editexam?userid="+u.getUserid()+"&role="+u.getRole() );
         }
     }
 

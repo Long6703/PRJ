@@ -74,7 +74,7 @@
             }
 
             body {
-                background-image: url(image/anh2.jpg);
+                background-color: #008F98;
                 background-repeat: no-repeat;
                 background-position: center center;
                 background-position: 50% 65%;
@@ -197,7 +197,7 @@
                 }
         %>
         <form action="login" method="post">
-            <h1><span>Login</span> PRJ</h1>
+            <h1>Exam Schedule Management</h1>
             <input name="username" placeholder="Username" type="text" />
             <input name="password" placeholder="Password" type="password" />
             <div class="checkbox-wrapper">

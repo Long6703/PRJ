@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="Model.Users" %>
 <!DOCTYPE html>
 <html>
@@ -50,7 +51,7 @@
             a{
                 text-decoration: none;
             }
-            
+
             .text{
                 font-weight: bold;
             }
@@ -64,12 +65,12 @@
                 padding: 0 10px;
             }
         </style>
-    </head>
+    </head> 
     <body>
         <%
             Users us = null;
-            if(request.getSession().getAttribute("user")!=null){
-                us = (Users)request.getSession().getAttribute("user");
+            if (request.getSession().getAttribute("user") != null) {
+                us = (Users) request.getSession().getAttribute("user");
             }  
         %>
         <h1 class="header_title">Exam Schedule Management</h1>
@@ -79,12 +80,20 @@
                 <p> | </p>
             </div>
             <div class="header-right">
-                <a class="test" href="">${user.usernameString}</a>
-                <h4> | </h4>
-                <a class="test" href="logout">logout</a>
-                <h4> | </h4>
-                <a class="test" href="userdetail?userid=<%= us != null ? us.getUserid() : "" %>&role=<%= us != null ? us.getRole() : "" %>&mode=1">Manage profile</a>
+                <c:choose>
+                    <c:when test="<%= us == null %>">
+                        <a class="test" href="login">Login</a>
+                    </c:when>
+                    <c:otherwise>
+                        <a class="test" href="">${user.usernameString}</a>
+                        <h4> | </h4>
+                        <a class="test" href="logout">Logout</a>
+                        <h4> | </h4>
+                        <a class="test" href="userdetail?userid=<%= us != null ? us.getUserid() : "" %>&role=<%= us != null ? us.getRole() : "" %>&mode=1">Manage profile</a>
+                    </c:otherwise>
+                </c:choose>
             </div>
         </div>
     </body>
+
 </html>

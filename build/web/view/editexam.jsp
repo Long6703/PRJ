@@ -24,7 +24,7 @@
             }
 
             table, th, td {
-                border: 1px solid #00939C; /* Màu viền của bảng */
+                border: 1px solid #00939C;
             }
 
             th, td {
@@ -51,42 +51,49 @@
     <body>
         <%@ include file="header.jsp" %>
         <h3>Edit exam schedule!</h3>
-        <table>
-            <tr>
-                <th>Exam ID</th>
-                <th>Course Name</th>
-                <th>Exam date</th>
-                <th>Exam time</th>
-                <th>Exam location</th>
-                <th>Exam form</th>
-                <th>Exam type</th>
-                <th>Date of public</th>
-                <th>Action</th>
-            </tr>
-            <c:forEach var="exam" items="${allExamByTeacher}">
-                <tr>
-                    <td>${exam.examID}</td>
-                    <td>${exam.courses.courseName}</td>
-                    <td>${exam.exam_date}</td>
-                    <td>${exam.exam_time}</td>
-                    <td>${exam.exam_location}</td>
-                    <td>${exam.exam_form}</td>
-                    <td>${exam.exam_type}</td>
-                    <td>${exam.dateOfPublic}</td>
-                    <td>
-                        <form action="editexam" method="post">
-                            <input type="hidden" name="examId" value="${exam.examID}">
-                            <button type="submit">Delete</button>
-                        </form>
-                    </td>
-                    <td>
-                        <form action="updateexam" method="get">
-                            <input type="hidden" name="courseId" value="${exam.examID}">
-                            <button type="submit">Update</button>
-                        </form>
-                    </td>
-                </tr>
-            </c:forEach>
-        </table>
+        <c:choose>
+            <c:when test="${not empty allExamByTeacher}">
+                <table>
+                    <tr>
+                        <th>Exam ID</th>
+                        <th>Course Name</th>
+                        <th>Exam date</th>
+                        <th>Exam time</th>
+                        <th>Exam location</th>
+                        <th>Exam form</th>
+                        <th>Exam type</th>
+                        <th>Date of public</th>
+                        <th>Action</th>
+                    </tr>
+                    <c:forEach var="exam" items="${allExamByTeacher}">
+                        <tr>
+                            <td>${exam.examID}</td>
+                            <td>${exam.courses.courseName}</td>
+                            <td>${exam.exam_date}</td>
+                            <td>${exam.exam_time}</td>
+                            <td>${exam.exam_location}</td>
+                            <td>${exam.exam_form}</td>
+                            <td>${exam.exam_type}</td>
+                            <td>${exam.dateOfPublic}</td>
+                            <td>
+                                <form action="editexam" method="post">
+                                    <input type="hidden" name="examId" value="${exam.examID}">
+                                    <button type="submit">Delete</button>
+                                </form>
+                            </td>
+                            <td>
+                                <form action="updateexam" method="get">
+                                    <input type="hidden" name="courseId" value="${exam.examID}">
+                                    <button type="submit">Update</button>
+                                </form>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </table>
+            </c:when>
+            <c:otherwise>
+                <h4>You have not created any exams yet.</h4>
+            </c:otherwise>
+        </c:choose>
     </body>
 </html>

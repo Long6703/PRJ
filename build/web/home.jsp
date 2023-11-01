@@ -76,7 +76,7 @@
         <%@ include file="view/header.jsp" %>
         <div class="container">
             <div>
-                <h2>List feature for student</h2>
+                <h2>List of feature for student</h2>
                 <ul>
                     <li>
                         <a href="viewexam?userid=<%= u != null ? u.getUserid() : "" %>&role=<%= u != null ? u.getRole() : "" %>">
@@ -96,7 +96,7 @@
                 </ul>
             </div>
             <div>
-                <h2>List feature for teacher</h2>
+                <h2>List of feature for teacher</h2>
                 <ul>
                     <li>
                         <a href="createexam?userid=<%= u != null ? u.getUserid() : "" %>&role=<%= u != null ? u.getRole() : "" %>">

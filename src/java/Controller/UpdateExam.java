@@ -3,6 +3,7 @@ package Controller;
 
 import Dal.ExamDBContext;
 import Model.Exams;
+import Model.Users;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -54,8 +55,9 @@ public class UpdateExam extends BaseAuthen {
         String dateOfPublic = request.getParameter("dateOfPublic");
         String examid = request.getParameter("examID");
         ExamDBContext ebdc = new ExamDBContext();
+        Users u = (Users)request.getSession().getAttribute("user");
         if(ebdc.updateExam(edate, examTime, examLocation, examType, dateOfPublic, Integer.parseInt(examid))){
-            response.getWriter().println("done");
+            response.sendRedirect( "editexam?userid="+u.getUserid()+"&role="+u.getRole() );
         }
         
     }

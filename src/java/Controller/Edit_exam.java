@@ -1,6 +1,7 @@
 package Controller;
 
 import Dal.ExamDBContext;
+import Dal.RegistrationsDBContext;
 import Model.Exams;
 import Model.Users;
 import java.io.IOException;
@@ -52,10 +53,11 @@ public class Edit_exam extends BaseAuthen {
             throws ServletException, IOException {
         ExamDBContext e = new ExamDBContext();
         String examID = request.getParameter("examId");
-        if (e.deleteExam(Integer.parseInt(examID))) {
-            response.getWriter().println("done");
-        }else {
-            response.getWriter().println("no");
+        RegistrationsDBContext rdbc = new RegistrationsDBContext();
+        Users u = (Users)request.getSession().getAttribute("user");
+        if (rdbc.deleteExams(Integer.parseInt(examID))) {
+            e.deleteExam(Integer.parseInt(examID));
+            response.sendRedirect( "editexam?userid="+u.getUserid()+"&role="+u.getRole() );
         }
 
     }

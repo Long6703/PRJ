@@ -37,32 +37,39 @@
     <body>
         <%@ include file="header.jsp" %>
         <h3>View Exam Schedule!</h3>
-        <table>
-            <tr>
-                <th>Exam ID</th>
-                <th>Courses ID</th>
-                <th>Courses Name</th>
-                <th>Exam Date</th>
-                <th>Exam Time</th>
-                <th>Exam Location</th>
-                <th>Exam Form</th>
-                <th>Exam Type</th>
-                <th>Date of Publication</th>
-            </tr>
+        <c:choose>
+            <c:when test="${not empty litExamses}">
+                <table>
+                    <tr>
+                        <th>Exam ID</th>
+                        <th>Courses ID</th>
+                        <th>Courses Name</th>
+                        <th>Exam Date</th>
+                        <th>Exam Time</th>
+                        <th>Exam Location</th>
+                        <th>Exam Form</th>
+                        <th>Exam Type</th>
+                        <th>Date of Publication</th>
+                    </tr>
 
-            <c:forEach var="r" items="${litExamses}">
-                <tr>
-                    <td>${r.exam.examID}</td>
-                    <td>${r.exam.courses.courseID}</td>
-                    <td>${r.exam.courses.courseName}</td>
-                    <td>${r.exam.exam_date}</td>
-                    <td>${r.exam.exam_time}</td>
-                    <td>${r.exam.exam_location}</td>
-                    <td>${r.exam.exam_form}</td>
-                    <td>${r.exam.exam_type}</td>
-                    <td>${r.exam.dateOfPublic}</td>
-                </tr>
-            </c:forEach>
-        </table>
+                    <c:forEach var="r" items="${litExamses}">
+                        <tr>
+                            <td>${r.exam.examID}</td>
+                            <td>${r.exam.courses.courseID}</td>
+                            <td>${r.exam.courses.courseName}</td>
+                            <td>${r.exam.exam_date}</td>
+                            <td>${r.exam.exam_time}</td>
+                            <td>${r.exam.exam_location}</td>
+                            <td>${r.exam.exam_form}</td>
+                            <td>${r.exam.exam_type}</td>
+                            <td>${r.exam.dateOfPublic}</td>
+                        </tr>
+                    </c:forEach>
+                </table>
+            </c:when>
+            <c:otherwise>
+                <h4>There are no exams yet.</h4>
+            </c:otherwise>
+        </c:choose>
     </body>
 </html>

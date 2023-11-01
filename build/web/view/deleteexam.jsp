@@ -49,37 +49,47 @@
     </head>
     <body>
         <%@ include file="header.jsp" %>
-        <h3>Cancel Exam Schedule!</h3>
-        <table>
-            <tr>
-                <th>Courses ID</th>
-                <th>Courses Name</th>
-                <th>Exam Date</th>
-                <th>Exam Time</th>
-                <th>Exam Location</th>
-                <th>Exam Form</th>
-                <th>Exam Type</th>
-                <th>Date of Publication</th>
-                <th>Action</th>
-            </tr>
+        <c:choose>
+            <c:when test="${not empty litExamses}">
+                <h3>Cancel Exam Schedule!</h3>
+                <table>
+                    <tr>
+                        <th>Exam ID</th>
+                        <th>Courses ID</th>
+                        <th>Courses Name</th>
+                        <th>Exam Date</th>
+                        <th>Exam Time</th>
+                        <th>Exam Location</th>
+                        <th>Exam Form</th>
+                        <th>Exam Type</th>
+                        <th>Date of Publication</th>
+                        <th>Action</th>
+                    </tr>
 
-            <c:forEach var="r" items="${litExamses}">
-                <tr>
-                    <td>${r.exam.courses.courseID}</td>
-                    <td>${r.exam.courses.courseName}</td>
-                    <td>${r.exam.exam_date}</td>
-                    <td>${r.exam.exam_time}</td>
-                    <td>${r.exam.exam_location}</td>
-                    <td>${r.exam.exam_form}</td>
-                    <td>${r.exam.exam_type}</td>
-                    <td>${r.exam.dateOfPublic}</td>
-                    <td>
-                        <form action="deleteexam" method="post">
-                            <input type="hidden" name="registrationsID" value="${r.registrationsID}">
-                            <button type="submit">Delete</button>
-                        </form>
-                    </td>
-                </tr>
-            </c:forEach>
+                    <c:forEach var="r" items="${litExamses}">
+                        <tr>
+                            <td>${r.exam.examID}</td>
+                            <td>${r.exam.courses.courseID}</td>
+                            <td>${r.exam.courses.courseName}</td>
+                            <td>${r.exam.exam_date}</td>
+                            <td>${r.exam.exam_time}</td>
+                            <td>${r.exam.exam_location}</td>
+                            <td>${r.exam.exam_form}</td>
+                            <td>${r.exam.exam_type}</td>
+                            <td>${r.exam.dateOfPublic}</td>
+                            <td>
+                                <form action="deleteexam" method="post">
+                                    <input type="hidden" name="registrationsID" value="${r.registrationsID}">
+                                    <button type="submit">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </table>
+            </c:when>
+            <c:otherwise>
+                <h4>You have not registered for any exam yet.</h4>
+            </c:otherwise>
+        </c:choose>
     </body>
 </html>

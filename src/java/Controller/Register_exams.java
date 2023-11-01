@@ -1,6 +1,5 @@
 package Controller;
 
-import Dal.CourseDBContext;
 import Dal.ExamDBContext;
 import Dal.RegistrationsDBContext;
 import Dal.StudentDBContext;
@@ -27,8 +26,8 @@ public class Register_exams extends BaseAuthen {
         Users u = (Users) request.getSession().getAttribute("user");
         if ("student".equals(u.getRole())) {
             ExamDBContext edbc = new ExamDBContext();
-            ArrayList<Exams> listCourseses = edbc.getCoursesesByStudent(u.getUserid());
-            request.setAttribute("listCourseses", listCourseses);
+            ArrayList<Exams> listExams = edbc.getCoursesesByStudent(u.getUserid());
+            request.setAttribute("listCourseses", listExams);
             request.getRequestDispatcher("view/registerexam.jsp").forward(request, response);
         } else {
             request.getRequestDispatcher("view/permissions.jsp").forward(request, response);
@@ -64,7 +63,7 @@ public class Register_exams extends BaseAuthen {
             r.setDateRegistrations(date);
             RegistrationsDBContext rgdb = new RegistrationsDBContext();
             if (rgdb.insertRegistrations(r)) {
-                
+                response.sendRedirect( "registerexam?userid="+u.getUserid()+"&role="+u.getRole() );
             }
         }
     }

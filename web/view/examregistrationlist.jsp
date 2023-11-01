@@ -51,25 +51,27 @@
     <body>
         <%@ include file="header.jsp" %>
         <h3>List Course!</h3>
-        <table>
-            <tr>
-                <th>Course ID</th>
-                <th>Course Name</th>
-                <th>Action</th>
-            </tr>
-            <c:forEach var="c" items="${listCourseses}">
+        <c:if test="${not empty listCourseses}">
+            <table>
                 <tr>
-                    <td>${c.courseID}</td>
-                    <td>${c.courseName}</td>
-                    <td>
-                        <form action="examregistrationlist" method="post">
-                            <input type="hidden" name="teacherid" value="${c.teacher.teacher_id}">
-                            <input type="hidden" name="courseID" value="${c.courseID}">
-                            <button type="submit">List Student Registration</button>
-                        </form>
-                    </td>
+                    <th>Course ID</th>
+                    <th>Course Name</th>
+                    <th>Action</th>
                 </tr>
-            </c:forEach>
-        </table>
+                <c:forEach var="c" items="${listCourseses}">
+                    <tr>
+                        <td>${c.courseID}</td>
+                        <td>${c.courseName}</td>
+                        <td>
+                            <form action="examregistrationlist" method="post">
+                                <input type="hidden" name="teacherid" value="${c.teacher.teacher_id}">
+                                <input type="hidden" name="courseID" value="${c.courseID}">
+                                <button type="submit">List Student Registration</button>
+                            </form>
+                        </td>
+                    </tr>
+                </c:forEach>
+            </table>
+        </c:if>
     </body>
 </html>
