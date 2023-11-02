@@ -85,7 +85,7 @@
                         <a class="test" href="login">Login</a>
                     </c:when>
                     <c:otherwise>
-                        <a class="test" href="">${user.usernameString}</a>
+                        <a class="test" href="userdetail?userid=<%= us != null ? us.getUserid() : "" %>&role=<%= us != null ? us.getRole() : "" %>&mode=1">${user.usernameString}</a>
                         <h4> | </h4>
                         <a class="test" href="logout">Logout</a>
                         <h4> | </h4>

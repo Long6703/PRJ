@@ -82,11 +82,14 @@
             .button:hover {
                 background-color: #007f86;
             }
-            
+
             span {
                 color: red;
                 margin-left: 280px;
                 margin-top: 200px;
+            }
+            #error{
+                margin: 0 auto;
             }
         </style>
 
@@ -94,43 +97,46 @@
     <body>
         <%@ include file="header.jsp" %>
         <h3>Create exam schedule!</h3>
-        <form action="createexam" method="post">
-            <div class="form-container">
-                <div class="form-label">Courses :</div>
-                <div class="form-input">
-                    <select name="courseID">
-                        <c:forEach items="${coursesList}" var="c">
-                            <option value="${c.courseID}">${c.courseName}</option>
-                        </c:forEach>
-                    </select>
+        <form  action="createexam" method="post">
+            <div id="frm">
+                <div class="form-container">
+                    <div class="form-label">Courses :</div>
+                    <div class="form-input">
+                        <select name="courseID">
+                            <c:forEach items="${coursesList}" var="c">
+                                <option value="${c.courseID}">${c.courseName}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
                 </div>
-            </div>
-            <div class="form-container">
-                <div class="form-label">Exam Date:</div>
-                <div class="form-input"><input type="date" name="examdate"></div>
-            </div>
-            <div class="form-container">
-                <div class="form-label">Exam Time:</div>
-                <div class="form-input"><input type="time" name="examtime"></div>
-            </div>
-            <div class="form-container">
-                <div class="form-label">Exam Location :</div>
-                <div class="form-input"><input type="text" name="examlocation"></div>
-            </div>
-            <div class="form-container">
-                <div class="form-label">Exam Type:</div>
-                <div class="form-input">
-                    <input type="radio" name="examtype" value="FE" checked>FE
-                    <input type="radio" name="examtype" value="PE">PE
+                <div class="form-container">
+                    <div class="form-label">Exam Date:</div>
+                    <div class="form-input"><input type="date" name="examdate"></div>
                 </div>
+                <div class="form-container">
+                    <div class="form-label">Exam Time:</div>
+                    <div class="form-input"><input type="time" name="examtime"></div>
+                </div>
+                <div class="form-container">
+                    <div class="form-label">Exam Location :</div>
+                    <div class="form-input"><input type="text" name="examlocation"></div>
+                </div>
+                <div class="form-container">
+                    <div class="form-label">Exam Type:</div>
+                    <div class="form-input">
+                        <input type="radio" name="examtype" value="FE" checked>FE
+                        <input type="radio" name="examtype" value="PE">PE
+                    </div>
+                </div>
+                <div class="form-container">
+                    <div class="form-label">Date of Public:</div>
+                    <div class="form-input"><input type="date" name="dateofpublic"></div>
+                </div>
+                <input type="hidden" name="teacherID" value="${coursesList[0].teacher.teacher_id}" />
+                <button class="button" type="submit" name="addname" value="add">Create</button>
+                <span id="error" style="color: red">${err}</span>
             </div>
-            <div class="form-container">
-                <div class="form-label">Date of Public:</div>
-                <div class="form-input"><input type="date" name="dateofpublic"></div>
-            </div>
-            <input type="hidden" name="teacherID" value="${coursesList[0].teacher.teacher_id}" />
-            <button class="button" type="submit" name="addname" value="add">Create</button>
-            <span style="color: red">${err}</span>
+
         </form>
     </body>
 </html>

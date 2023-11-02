@@ -10,6 +10,9 @@ import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 /**
@@ -61,6 +64,19 @@ public class Create_Exam extends BaseAuthen {
             request.getRequestDispatcher("view/createexam.jsp").forward(request, response);
             return;
         }
+        if(!checkexamDate(examdate)){
+            String err = "Exam date must be in future";
+            request.setAttribute("err", err);
+            request.getRequestDispatcher("view/createexam.jsp").forward(request, response);
+            return;
+        }
+        
+        if(!isDateBefore(examdate, dateofpublic)){
+            String err = "The exam date must be before the date of public";
+            request.setAttribute("err", err);
+            request.getRequestDispatcher("view/createexam.jsp").forward(request, response);
+            return;
+        }
         Exams e = new Exams();
         Courses co = new Courses();
         co.setCourseID(Integer.parseInt(courseID));
@@ -98,5 +114,17 @@ public class Create_Exam extends BaseAuthen {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+    
+    public static boolean isDateBefore(String dateString1, String dateString2) {
+        LocalDate d1 = LocalDate.parse(dateString1);
+        LocalDate d2 = LocalDate.parse(dateString2);
+        return d1.isBefore(d2);
+    }
+    
+    public boolean checkexamDate(String dateString1){
+        LocalDate ngayHienTai = LocalDate.now();
+        LocalDate d1 = LocalDate.parse(dateString1);
+        return ngayHienTai.isBefore(d1);
+    }
 
 }
