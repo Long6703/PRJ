@@ -37,6 +37,7 @@
     <body>
         <%@ include file="header.jsp" %>
         <h3>List Student Registrations!</h3>
+        
         <c:choose>
             <c:when test="${not empty registrations}">
                 <table>
@@ -45,7 +46,6 @@
                         <th>Student Name</th>
                         <th>Class Name</th>
                         <th>Exam ID</th>
-                        <th>Course ID</th>
                         <th>Course Name</th>
                         <th>Date Registrations</th>
                     </tr>
@@ -55,7 +55,6 @@
                             <td>${r.student.student_name}</td>
                             <td>${r.student.studentClasses.class_nameString}</td>
                             <td>${r.exam.examID}</td>
-                            <td>${r.exam.courses.courseID}</td>
                             <td>${r.exam.courses.courseName}</td>
                             <td>${r.dateRegistrations}</td>
                         </tr>

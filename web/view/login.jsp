@@ -44,15 +44,6 @@
                 cursor: pointer;
             }
 
-            a,
-            a:visited,
-            a:active {
-                text-decoration: none;
-            }
-
-            a:hover {
-                text-decoration: none;
-            }
 
             ::selection {
                 background: #ed327b;
@@ -93,7 +84,7 @@
 
             h5>a,
             a:visited {
-                color: #fff;
+                color: #008F98;
                 text-decoration: underline;
             }
 
@@ -167,10 +158,6 @@
                 justify-content: space-between;
             }
 
-            .forgot-password {
-                margin-left: 10px;
-            }
-
             .check{
                 display: flex;
             }
@@ -180,7 +167,7 @@
                 margin-left: 10px;
                 margin-bottom: 10px;
             }
-            
+
             .error-message{
                 color: red;
                 margin-top: 30px;
@@ -205,9 +192,23 @@
                     <input type="checkbox" class="checkbox-input" name="rememberme" value="1">
                     <p class="one-line-text">Remember Me</p>
                 </div>
+                <div class="forgot-password">
+                    <a id="#" href="#">Forgot Password?</a>
+                </div>
             </div>
             <button class="btn" type="submit">Log in</button>
             <p class="error-message"><%=err%></p>
         </form>
+        <script>
+            document.getElementById("forgotPasswordLink").onclick = function (event) {
+                event.preventDefault();
+
+                var username = document.querySelector('input[name="username"]').value;
+                var link = "forgotpassword?username=" + encodeURIComponent(username);
+
+                // Chuyển hướng đến đường link mới
+                window.location.href = link;
+            };
+        </script>
     </body>
 </html>

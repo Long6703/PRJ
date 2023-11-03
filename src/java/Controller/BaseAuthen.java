@@ -37,7 +37,7 @@ public abstract class BaseAuthen extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        if(isAuthenticated(request) || request.getRequestURI().endsWith("/login")|| request.getRequestURI().endsWith("/register")){
+        if(isAuthenticated(request) || request.getRequestURI().endsWith("/login")|| request.getRequestURI().endsWith("/register") || request.getRequestURI().endsWith("forgotpassword")){
             doGet2(request, response);
         }else {
             request.getRequestDispatcher("view/AuthenError.jsp").forward(request, response);
@@ -54,7 +54,7 @@ public abstract class BaseAuthen extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        if(isAuthenticated(request) || request.getRequestURI().endsWith("/login") || request.getRequestURI().endsWith("/register")){
+        if(isAuthenticated(request) || request.getRequestURI().endsWith("/login") || request.getRequestURI().endsWith("/register") || request.getRequestURI().endsWith("forgotpassword")){
             doPost2(request, response);
         }else {
             request.getRequestDispatcher("view/AuthenError.jsp").forward(request, response);
