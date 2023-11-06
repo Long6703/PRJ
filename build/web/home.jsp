@@ -74,7 +74,16 @@
     </head>
     <body>
         <%@ include file="view/header.jsp" %>
+        <%
+            if (u == null) {
+        %>
+
+        <h2>Access Denied</h2>
+        <p>You need to login to access this page.</p>
+
+        <% }else { %>
         <div class="container">
+            <% if (u.getRole().equals("student")) { %>
             <div>
                 <h2>List of feature for student</h2>
                 <ul>
@@ -95,6 +104,7 @@
                     </li>
                 </ul>
             </div>
+            <% } else if (u.getRole().equals("teacher")) { %>
             <div>
                 <h2>List of feature for teacher</h2>
                 <ul>
@@ -113,8 +123,15 @@
                             See exam registration list
                         </a>
                     </li>
+                    <li>
+                        <a href="studentlist?userid=<%= u != null ? u.getUserid() : "" %>&role=<%= u != null ? u.getRole() : "" %>">
+                            Student list
+                        </a>
+                    </li>
                 </ul>
             </div>
+            <% } %>
         </div>
+        <% }%>
     </body>
 </html>

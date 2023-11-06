@@ -37,34 +37,36 @@
     <body>
         <%@ include file="header.jsp" %>
         <h3>List Student Registrations!</h3>
-        
+
         <c:choose>
             <c:when test="${not empty registrations}">
-                <table>
-                    <tr>
-                        <th>Student ID</th>
-                        <th>Student Name</th>
-                        <th>Class Name</th>
-                        <th>Exam ID</th>
-                        <th>Course Name</th>
-                        <th>Date Registrations</th>
-                    </tr>
-                    <c:forEach var="r" items="${registrations}">
+                    <table>
                         <tr>
-                            <td>${r.student.student_id}</td>
-                            <td>${r.student.student_name}</td>
-                            <td>${r.student.studentClasses.class_nameString}</td>
-                            <td>${r.exam.examID}</td>
-                            <td>${r.exam.courses.courseName}</td>
-                            <td>${r.dateRegistrations}</td>
+                            <th>Student ID</th>
+                            <th>Student Name</th>
+                            <th>Class Name</th>
+                            <th>Exam ID</th>
+                            <th>Course Name</th>
+                            <th>Date Registrations</th>
                         </tr>
-                    </c:forEach>
-                </table>
+                        <c:forEach var="r" items="${registrations}">
+                            <tr>
+                                <td>${r.student.student_id}</td>
+                                <td>${r.student.student_name}</td>
+                                <td>${r.student.studentClasses.class_nameString}</td>
+                                <td>${r.exam.examID}</td>
+                                <td>${r.exam.courses.courseName}</td>
+                                <td>${r.dateRegistrations}</td>
+                            <input type="hidden" name="teacherid" value="${r.exam.courses.teacher.teacher_id}">
+                            <input type="hidden" name="courseID" value="${r.exam.courses.courseID}">
+                            </tr>
+                        </c:forEach>
+                    </table>
+                </form>
             </c:when>
             <c:otherwise>
                 <h4>You have not created a test schedule or have no students registered yet.</h4>
             </c:otherwise>
         </c:choose>
-
     </body>
 </html>

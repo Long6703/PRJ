@@ -1,16 +1,11 @@
 package Controller;
 
-import Dal.DBContext;
 import Dal.StudentDBContext;
 import Dal.TeacherDBContext;
-import Dal.UserDBContext;
 import Dal.UsersDBContext;
-import Model.Student;
 import Model.Users;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -55,14 +50,14 @@ public class ForgotpasswordController extends BaseAuthen {
         String phone = request.getParameter("phone");
         String newpass = request.getParameter("newpass");
         String renewpass = request.getParameter("renewpass");
-        
+
         if (username.isEmpty() || name.isEmpty() || email.isEmpty() || phone.isEmpty() || newpass.isEmpty() || renewpass.isEmpty()) {
             String err = "Missing information for user authentication!!!";
             request.setAttribute("err", err);
             request.getRequestDispatcher("view/forgotpassword.jsp").forward(request, response);
             return;
         }
-        
+
         if (!newpass.equals(renewpass)) {
             String err = "New Password and Re_new password do not match!!!!";
             request.setAttribute("err", err);
@@ -84,14 +79,14 @@ public class ForgotpasswordController extends BaseAuthen {
                 check = true;
             }
         }
-        
+
         if (check) {
             UsersDBContext udbc = new UsersDBContext();
             if (udbc.changepass(newpass, u.getUserid())) {
                 response.sendRedirect("login");
             }
-        }else {
-            
+        } else {
+
         }
     }
 

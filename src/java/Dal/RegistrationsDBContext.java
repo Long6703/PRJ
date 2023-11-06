@@ -5,6 +5,7 @@ import Model.Courses;
 import Model.Exams;
 import Model.Registrations;
 import Model.Student;
+import Model.Teacher;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -104,7 +105,7 @@ public class RegistrationsDBContext extends DBContext {
                     + "  join Exams e on e.exam_id = r.exam_id\n"
                     + "  join Courses co on co.course_id = e.course_id\n"
                     + "  Join Students s on r.student_id = s.student_id\n"
-                    + "  where s.user_id = ?";
+                    + "  where s.user_id = ? ";
 
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, userID);
@@ -148,19 +149,20 @@ public class RegistrationsDBContext extends DBContext {
         return false;
     }
 
-    public ArrayList<Registrations> listRegistration(int teacherID, int courseID) {
+    public ArrayList<Registrations> listRegistration(int teacherID, int courseID, String classname) {
         ArrayList<Registrations> registrationses = new ArrayList<>();
         try {
-            String sql = "select r.student_id,s.student_name,c.class_name, r.exam_id, e.course_id, co.course_name, r.registration_date from Registrations r\n"
+            String sql = "select r.student_id,s.student_name,c.class_name, r.exam_id, e.course_id, co.course_name, co.teacher_id, r.registration_date from Registrations r\n"
                     + "join Exams e on r.exam_id = e.exam_id\n"
                     + "join Students s on r.student_id = s.student_id\n"
                     + "join Courses co on co.course_id = e.course_id\n"
                     + "join Classes c on s.class_id = c.class_id\n"
-                    + "where co.teacher_id = ? and co.course_id = ? ;";
+                    + "where co.teacher_id = ? and co.course_id = ? and c.class_name like ? ;";
 
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, teacherID);
             stm.setInt(2, courseID);
+            stm.setString(3, "%" + classname + "%");
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 Registrations r = new Registrations();
@@ -176,6 +178,9 @@ public class RegistrationsDBContext extends DBContext {
                 Courses co = new Courses();
                 co.setCourseID(rs.getInt("course_id"));
                 co.setCourseName(rs.getString("course_name"));
+                Teacher t = new Teacher();
+                t.setTeacher_id(rs.getInt("teacher_id"));
+                co.setTeacher(t);
                 e.setCourses(co);
                 r.setExam(e);
                 r.setDateRegistrations(rs.getString("registration_date"));

@@ -262,17 +262,21 @@ public class ExamDBContext extends DBContext {
     public ArrayList<Exams> getCoursesesByStudent(int userid) {
         ArrayList<Exams> allCoursesesofStudent = new ArrayList<>();
         try {
-            String sql = "select e.exam_id,e.course_id, co.course_name, e.exam_date,e.exam_time, e.exam_location,e.exam_type, e.exam_form,e.dateOfPublic, e.exam_date,t.teacher_id, t.teacher_name, t.teacher_email from Exams e\n" +
+            String sql = "select e.exam_id,e.course_id, co.course_name, e.exam_date,e.exam_time, e.exam_location,e.exam_type, e.exam_form,e.dateOfPublic, e.exam_date,t.teacher_id, t.teacher_name, t.teacher_email\n" +
+                        "from Exams e\n" +
                         "join Courses co on e.course_id = co.course_id\n" +
                         "join Teachers t on co.teacher_id = t.teacher_id\n" +
                         "join ClassCourses cc on co.course_id = cc.course_id\n" +
                         "join Classes c on c.class_id = cc.class_id\n" +
                         "join Students s on s.class_id = c.class_id\n" +
                         "where s.user_id = ? \n" +
-                        "and e.exam_id NOT IN (SELECT [exam_id] FROM Registrations);";
+                        "and e.exam_id NOT IN (SELECT [exam_id] FROM Registrations r\n" +
+                        "join Students s on r.student_id = s.student_id\n" +
+                        "where s.user_id = ? )";
 
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, userid);
+            stm.setInt(2, userid);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 Exams e = new Exams();

@@ -1,7 +1,9 @@
 package Controller;
 
+import Dal.ClassesDBContext;
 import Dal.CourseDBContext;
 import Dal.RegistrationsDBContext;
+import Model.Classes;
 import Model.Courses;
 import Model.Registrations;
 import Model.Users;
@@ -35,7 +37,7 @@ public class Exam_registration_list extends BaseAuthen {
             ArrayList<Courses> listCourseses = cdbc.getAllCourseByUserID(u.getUserid());
             request.setAttribute("listCourseses", listCourseses);
             request.getRequestDispatcher("view/examregistrationlist.jsp").forward(request, response);
-        }else {
+        } else {
             request.getRequestDispatcher("view/permissions.jsp").forward(request, response);
         }
 
@@ -54,11 +56,19 @@ public class Exam_registration_list extends BaseAuthen {
             throws ServletException, IOException {
         String teacherid = request.getParameter("teacherid");
         String courseID = request.getParameter("courseID");
+        System.out.println(teacherid + " " + courseID);
+        String cname = request.getParameter("cname");
+        if (cname == null || cname.equals("all")) {
+            cname = "";
+        }
+        System.out.println("classname : " + cname);
         RegistrationsDBContext bContext = new RegistrationsDBContext();
-        ArrayList<Registrations> registrations = bContext.listRegistration(Integer.parseInt(teacherid), Integer.parseInt(courseID));
+        ArrayList<Registrations> registrations = bContext.listRegistration(Integer.parseInt(teacherid), Integer.parseInt(courseID), cname);
+        ClassesDBContext bContext1 = new ClassesDBContext();
+        ArrayList<Classes> listclass = bContext1.getAllClassesesByCourse(Integer.parseInt(courseID), Integer.parseInt(teacherid));
         request.setAttribute("registrations", registrations);
+        request.setAttribute("listclass", listclass);
         request.getRequestDispatcher("view/liststudentregis.jsp").forward(request, response);
-
     }
 
     /**
