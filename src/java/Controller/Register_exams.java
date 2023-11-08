@@ -61,9 +61,12 @@ public class Register_exams extends BaseAuthen {
             LocalDate currentDate = LocalDate.now();
             String date = String.valueOf(currentDate);
             r.setDateRegistrations(date);
+            r.setStatusprocess("0");
             RegistrationsDBContext rgdb = new RegistrationsDBContext();
             if (rgdb.insertRegistrations(r)) {
                 response.sendRedirect( "registerexam?userid="+u.getUserid()+"&role="+u.getRole() );
+            }else {
+                response.getWriter().println("no");
             }
         }
     }

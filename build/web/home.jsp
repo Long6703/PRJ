@@ -123,11 +123,6 @@
                             See exam registration list
                         </a>
                     </li>
-                    <li>
-                        <a href="studentlist?userid=<%= u != null ? u.getUserid() : "" %>&role=<%= u != null ? u.getRole() : "" %>">
-                            Student list
-                        </a>
-                    </li>
                 </ul>
             </div>
             <% } %>

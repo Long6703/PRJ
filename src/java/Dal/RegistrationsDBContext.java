@@ -79,12 +79,14 @@ public class RegistrationsDBContext extends DBContext {
             String sql = "INSERT INTO [dbo].[Registrations]\n"
                     + "           ([exam_id]\n"
                     + "           ,[student_id]\n"
-                    + "           ,[registration_date])\n"
+                    + "           ,[registration_date]\n"
+                    + "           ,[statusprocess])\n"
                     + "     VALUES\n"
                     + "           (?\n"
                     + "           ,?\n"
-                    + "           ,?)";
-
+                    + "           ,?\n"
+                    + "           ,'processing')\n";
+                    
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, r.getExam().getExamID());
             stm.setInt(2, r.getStudent().getStudent_id());
@@ -100,7 +102,7 @@ public class RegistrationsDBContext extends DBContext {
     public ArrayList<Registrations> getAllExamsInRegistration(int userID) {
         ArrayList<Registrations> litExamses = new ArrayList<>();
         try {
-            String sql = "SELECT r.registration_id, e.exam_id, e.course_id, co.course_name, e.exam_date, e.exam_time, e.exam_location, e.exam_form, e.exam_type, e.dateOfPublic\n"
+            String sql = "SELECT r.registration_id, e.exam_id, e.course_id, co.course_name, e.exam_date, e.exam_time, e.exam_location, e.exam_form, e.exam_type, e.dateOfPublic, r.statusprocess \n"
                     + "  FROM [Registrations] r\n"
                     + "  join Exams e on e.exam_id = r.exam_id\n"
                     + "  join Courses co on co.course_id = e.course_id\n"
@@ -126,6 +128,65 @@ public class RegistrationsDBContext extends DBContext {
                 e.setExam_type(rs.getString("exam_type"));
                 e.setDateOfPublic(rs.getString("dateOfPublic"));
                 r.setExam(e);
+                r.setStatusprocess(rs.getString("statusprocess"));
+                litExamses.add(r);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(RegistrationsDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return litExamses;
+    }
+    
+        public ArrayList<Registrations> getAllExamsInRegistration2(int userID, int pageindex, int pagesize) {
+        ArrayList<Registrations> litExamses = new ArrayList<>();
+        try {
+            String sql = "SELECT *\n" +
+                        "FROM (\n" +
+                        "  SELECT\n" +
+                        "    r.registration_id,\n" +
+                        "    e.exam_id,\n" +
+                        "    e.course_id,\n" +
+                        "    co.course_name,\n" +
+                        "    e.exam_date,\n" +
+                        "    e.exam_time,\n" +
+                        "    e.exam_location,\n" +
+                        "    e.exam_form,\n" +
+                        "    e.exam_type,\n" +
+                        "    e.dateOfPublic,\n" +
+                        "    r.statusprocess,\n" +
+                        "    ROW_NUMBER() OVER (ORDER BY r.registration_id ASC) AS rownum\n" +
+                        "  FROM Registrations r\n" +
+                        "  JOIN Exams e ON e.exam_id = r.exam_id\n" +
+                        "  JOIN Courses co ON co.course_id = e.course_id\n" +
+                        "  JOIN Students s ON r.student_id = s.student_id\n" +
+                        "  WHERE s.user_id = ? \n" +
+                        ") AS RankedRegistrations\n" +
+                        "WHERE rownum >= ( ? - 1 )* ? + 1 AND rownum <= ( ? * ? );";
+
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, userID);
+            stm.setInt(2, pageindex);
+            stm.setInt(3, pagesize);
+            stm.setInt(4, pageindex);
+            stm.setInt(5, pagesize);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Registrations r = new Registrations();
+                r.setRegistrationsID(rs.getInt("registration_id"));
+                Exams e = new Exams();
+                e.setExamID(rs.getInt("exam_id"));
+                Courses c = new Courses();
+                c.setCourseID(rs.getInt("course_id"));
+                c.setCourseName(rs.getString("course_name"));
+                e.setCourses(c);
+                e.setExam_date(rs.getString("exam_date"));
+                e.setExam_time(rs.getString("exam_time"));
+                e.setExam_location(rs.getString("exam_location"));
+                e.setExam_form(rs.getString("exam_form"));
+                e.setExam_type(rs.getString("exam_type"));
+                e.setDateOfPublic(rs.getString("dateOfPublic"));
+                r.setExam(e);
+                r.setStatusprocess(rs.getString("statusprocess"));
                 litExamses.add(r);
             }
         } catch (SQLException ex) {
@@ -205,6 +266,57 @@ public class RegistrationsDBContext extends DBContext {
             Logger.getLogger(RegistrationsDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
+    }
+    
+    public boolean updateprocess(int examid, int studentid){
+        try {
+            String sql = "UPDATE [dbo].[Registrations]\n" +
+                    "   SET [statusprocess] = 'approve'\n" +
+                    " WHERE exam_id = ? and student_id = ? ";
+            
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, examid);
+            stm.setInt(2, studentid);
+            stm.executeUpdate();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(RegistrationsDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+    
+    public boolean updateprocess2(int examid, int studentid){
+        try {
+            String sql = "UPDATE [dbo].[Registrations]\n" +
+                    "   SET [statusprocess] = 'reject'\n" +
+                    " WHERE exam_id = ? and student_id = ? ";
+            
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, examid);
+            stm.setInt(2, studentid);
+            stm.executeUpdate();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(RegistrationsDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+    
+    public int getCount(int userid){
+        try {
+            String sql = "select count(*) as total from Registrations r\n" +
+                        "join Students s on r.student_id = s.student_id\n" +
+                        "where s.user_id = ? ";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, userid);
+            ResultSet rs = stm.executeQuery();
+            if(rs.next()){
+                return rs.getInt("total");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(RegistrationsDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return -1;
     }
 
 }

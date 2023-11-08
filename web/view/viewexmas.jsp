@@ -30,13 +30,21 @@
                 padding: 8px;
                 text-align: center;
             }
+            .page-link {
+                margin-right: 10px; 
+                margin-left:  10px;/* Khoảng cách giữa các số */
+            }
+
+            .current-page {
+                font-weight: bold; /* Làm nổi bật trang hiện tại */
+            }
 
 
         </style>
     </head>
     <body>
         <%@ include file="header.jsp" %>
-        <h3>View Exam Schedule!</h3>
+        <h3>View Exam Schedule!</h3> 
         <c:choose>
             <c:when test="${not empty litExamses}">
                 <table>
@@ -50,6 +58,7 @@
                         <th>Exam Form</th>
                         <th>Exam Type</th>
                         <th>Date of Publication</th>
+                        <th>Status Process</th>
                     </tr>
 
                     <c:forEach var="r" items="${litExamses}">
@@ -63,6 +72,7 @@
                             <td>${r.exam.exam_form}</td>
                             <td>${r.exam.exam_type}</td>
                             <td>${r.exam.dateOfPublic}</td>
+                            <td>${r.statusprocess}</td>
                         </tr>
                     </c:forEach>
                 </table>
@@ -71,5 +81,39 @@
                 <h4>There are no exams yet.</h4>
             </c:otherwise>
         </c:choose>
+        <div id="pagger"></div>
+        <script>
+            function renderPager(id, pageIndex, totalPage, gap) {
+                var container = document.getElementById(id);
+
+                // Hiển thị liên kết "First" nếu không ở trang đầu
+                if (pageIndex > 1) {
+                    container.innerHTML += '<a href="viewexam?userid=${user.userid}&role=${user.role}&pageindex=1">First</a>';
+                }
+
+                // Hiển thị các trang trước trang hiện tại
+                for (var i = pageIndex - gap; i < pageIndex; i++) {
+                    if (i > 0) {
+                        container.innerHTML += '<a class="page-link" href="viewexam?userid=${user.userid}&role=${user.role}&pageindex=' + i + '">' + i + '</a>';
+                    }
+                }
+
+                // Hiển thị trang hiện tại
+                container.innerHTML += '<span class="current-page">' + pageIndex + '</span>';
+
+                // Hiển thị các trang sau trang hiện tại
+                for (var i = pageIndex + 1; i <= pageIndex + gap; i++) {
+                    if (i <= totalPage) {
+                        container.innerHTML += '<a class="page-link" href="viewexam?userid=${user.userid}&role=${user.role}&pageindex=' + i + '">' + i + '</a>';
+                    }
+                }
+
+                // Hiển thị liên kết "Last" nếu không ở trang cuối
+                if (pageIndex < totalPage) {
+                    container.innerHTML += '<a href="viewexam?userid=${user.userid}&role=${user.role}&pageindex=' + totalPage + '">Last</a>';
+                }
+            }
+            renderPager('pagger', ${requestScope.pageindex}, ${requestScope.totalpage}, 1);
+        </script>
     </body>
 </html>

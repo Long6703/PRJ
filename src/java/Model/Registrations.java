@@ -9,6 +9,17 @@ public class Registrations {
     private Exams exam;
     private Student student;
     private String dateRegistrations;
+    private String statusprocess;
+
+    public String getStatusprocess() {
+        return statusprocess;
+    }
+
+    public void setStatusprocess(String statusprocess) {
+        this.statusprocess = statusprocess;
+    }
+    
+    
 
     public Registrations() {
     }

@@ -49,9 +49,9 @@
     </head>
     <body>
         <%@ include file="header.jsp" %>
+        <h3>Cancel Exam Schedule!</h3>
         <c:choose>
             <c:when test="${not empty litExamses}">
-                <h3>Cancel Exam Schedule!</h3>
                 <table>
                     <tr>
                         <th>Exam ID</th>
@@ -65,7 +65,6 @@
                         <th>Date of Publication</th>
                         <th>Action</th>
                     </tr>
-
                     <c:forEach var="r" items="${litExamses}">
                         <tr>
                             <td>${r.exam.examID}</td>

@@ -30,7 +30,17 @@ public class View_Exam_Schedule extends BaseAuthen {
         String role = request.getParameter("role");
         if ("student".equals(role)) {
             RegistrationsDBContext rgdb = new RegistrationsDBContext();
-            ArrayList<Registrations> litExamses = rgdb.getAllExamsInRegistration(Integer.parseInt(userid));
+            int pagesize = 3;
+            String page = request.getParameter("pageindex");
+            if(page == null || page.trim().length() == 0){
+                page = "1";
+            }
+            int totalrecord = rgdb.getCount(Integer.parseInt(userid));
+            int totalpage = (totalrecord % pagesize == 0) ? (totalrecord / pagesize) : (totalrecord / pagesize) + 1;
+            int pageindex = Integer.parseInt(page);
+            ArrayList<Registrations> litExamses = rgdb.getAllExamsInRegistration2(Integer.parseInt(userid), pageindex, pagesize);
+            request.setAttribute("pageindex", pageindex);
+            request.setAttribute("totalpage", totalpage);
             request.setAttribute("litExamses", litExamses);
             request.getRequestDispatcher("view/viewexmas.jsp").forward(request, response);
         } else {
