@@ -30,6 +30,7 @@ public class StudentList extends BaseAuthen {
         String userid = request.getParameter("userid");
         String role = request.getParameter("role");
         if ("teacher".equals(role)) {
+
             
         }else {
             request.getRequestDispatcher("view/permissions.jsp").forward(request, response);
